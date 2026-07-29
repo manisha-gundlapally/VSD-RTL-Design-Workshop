@@ -1,9 +1,45 @@
-## Standard Cell Library and PVT Characterization
+Standard Cell Library and PVT Characterization
 
-A standard cell library contains pre-designed and pre-characterized digital logic cells such as **AND, OR, NAND, NOR gates, multiplexers, and flip-flops** that are used during logic synthesis.
+During logic synthesis, the RTL design cannot be directly converted into hardware without a technology library. A Standard Cell Library provides a collection of pre-designed and pre-characterized logic cells such as logic gates, multiplexers, flip-flops, and buffers that serve as the fundamental building blocks for digital circuit implementation. Along with the functional description of each cell, the library also contains timing, power, area, and drive-strength information, enabling the synthesis tool to map the RTL design into an optimized gate-level netlist.
 
-Each cell is characterized under specific **Process, Voltage, and Temperature (PVT)** conditions to accurately represent its timing, power, and area characteristics.
+The workshop used the sky130_fd_sc_hd__tt_025C_1v80.lib library, where each part of the filename represents a specific characterization condition. The TT (Typical-Typical) corner indicates nominal manufacturing conditions for both NMOS and PMOS transistors. 025C specifies that the library is characterized at an operating temperature of 25°C, while 1v80 indicates a supply voltage of 1.80 V.
 
-For example, the library **`sky130_fd_sc_hd__tt_025C_1v80.lib`** represents the SKY130 High-Density standard cell library characterized for the **Typical-Typical (TT)** process corner, an operating temperature of **25°C**, and a supply voltage of **1.80 V**.
+These characterization conditions are collectively known as PVT (Process, Voltage, and Temperature) corners. Since transistor behavior changes due to fabrication variations, supply voltage fluctuations, and operating temperature, the same digital circuit may exhibit different timing characteristics under different conditions. By using a library characterized for a particular PVT corner, synthesis and timing tools can estimate the performance of the design more accurately and generate hardware that operates reliably under the specified operating conditions.
 
-These parameters help synthesis and timing analysis tools estimate circuit performance under defined operating conditions, ensuring reliable hardware implementation despite manufacturing variations and environmental changes.
+
+Yes, I understand. In Day 1, they also explained **Hierarchical Synthesis**, **Flattening**, and **Submodule-Level Synthesis**. Here's an original write-up you can include in your README.
+
+---
+
+## Hierarchical Synthesis
+
+In digital design, a top-level module often consists of multiple submodules, each implementing a specific functionality. During **hierarchical synthesis**, the synthesis tool preserves this module hierarchy while synthesizing the design. Each submodule is synthesized independently, and the final netlist maintains the same hierarchical structure as the original RTL. This approach makes the design easier to understand, debug, and reuse, especially for large and complex projects.
+
+---
+
+## Flattening the Design
+
+The **`flatten`** command is used to remove the hierarchical boundaries between modules. Instead of keeping separate top and submodules, the synthesis tool merges all the instantiated modules into a single module. After flattening, the design contains one unified gate-level representation without any submodule hierarchy.
+
+Flattening enables the synthesis tool to perform optimizations across module boundaries, which can improve area, timing, and logic optimization. However, the original module hierarchy is lost, making the netlist more difficult to interpret and debug.
+
+### Commands Used
+
+```bash
+synth -top multiple_modules
+write_verilog multiple_modules_hier.v
+
+flatten
+
+write_verilog multiple_modules_flat.v
+```
+
+* `multiple_modules_hier.v` → Hierarchical gate-level netlist
+* `multiple_modules_flat.v` → Flattened gate-level netlist
+
+---
+
+## Submodule-Level Synthesis
+
+The workshop also demonstrated **submodule-level synthesis**, where an individual submodule is synthesized independently instead of synthesizing the complete design. This allows designers to analyze the area, timing, and logic implementation of a particular module before integrating it into the top-level design. Synthesizing submodules separately is useful for debugging, verification, and understanding the implementation details of reusable design blocks.
+
