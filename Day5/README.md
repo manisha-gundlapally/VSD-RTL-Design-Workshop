@@ -1,4 +1,4 @@
-<img width="1600" height="900" alt="WhatsApp Image 2026-07-30 at 11 01 01 AM" src="https://github.com/user-attachments/assets/a42b88e1-e1f8-4bd7-9c90-8f7da428473b" />RTL Coding Styles: IF-ELSE and CASE Statements
+RTL Coding Styles: IF-ELSE and CASE Statements
 Correct RTL coding practices are essential for ensuring that the synthesized hardware behaves exactly as intended. Improper coding styles can introduce unintended hardware elements such as latches, leading to simulation-synthesis mismatches and unreliable circuit behavior. This section discusses common coding practices, inferred latches, and precautions while using if-else and case statements.
 ________________________________________
 Priority Logic using IF-ELSE Statements
