@@ -155,10 +155,6 @@ Observation
 Learning Outcome
 Every output signal in a combinational always @(*) block must be assigned for all possible input conditions. Missing assignments result in inferred latches.
 
-
-
-<img width="1600" height="900" alt="WhatsApp Image 2026-07-30 at 11 01 01 AM" src="https://github.com/user-attachments/assets/f47778b5-eea7-45ed-aae7-a39ff98833de" />
-
 ________________________________________
 Lab 2: Incomplete IF-ELSE Statement (incomp_if2.v)
 This experiment extended the previous example by using an if-else if ladder.
