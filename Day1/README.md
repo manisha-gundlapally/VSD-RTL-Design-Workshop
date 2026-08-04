@@ -65,6 +65,32 @@ The complete simulation flow using **Icarus Verilog (iverilog)** consists of:
 5. Viewing the generated waveform using **GTKWave**.
 
 This process verifies whether the RTL behaves as expected before moving to synthesis.
+### Good Mux RTL Simulation
+
+The `good_mux` module was simulated using Icarus Verilog to verify its functionality before synthesis.
+
+#### Simulation Commands
+
+```bash
+iverilog good_mux.v tb_good_mux.v
+./a.out
+```
+
+#### Figure 1: Good Mux Simulation Output
+
+![Good Mux Simulation Output](images/good_mux_terminal_output.png)
+
+The terminal output confirms that the design compiled and executed successfully.
+
+### GTKWave Waveform
+
+The generated VCD file was viewed using GTKWave to verify the functionality of the multiplexer.
+
+#### Figure 2: GTKWave Waveform of Good Mux
+
+![Good Mux GTKWave Output](images/good_mux_waveform.png)
+
+The waveform confirms that the output `y` changes according to the selected input based on the value of `sel`.
 
 ---
 
