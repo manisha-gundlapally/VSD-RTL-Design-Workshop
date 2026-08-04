@@ -78,6 +78,11 @@ write_verilog multiple_modules_flat.v
 - `multiple_modules_flat.v` → **Flattened** gate-level netlist
 
 ---
+### Figure 3: Hierarchical Netlist
+
+<p align="center">
+  <img src="multiple_modules(netlist).jpeg" width="850">
+</p>
 
 ## Submodule-Level Synthesis
 
