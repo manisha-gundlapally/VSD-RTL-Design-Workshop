@@ -146,7 +146,6 @@ To stop unwanted transitions from propagating through a design, flip-flops are i
 This approach improves the **reliability, predictability, and synchronization** of digital circuits.
 
 ---
-
 ## Module Hierarchy
 
 The design is composed of multiple modules, where the top module instantiates lower-level submodules. This hierarchical organization improves readability, modularity, and code reuse.
@@ -154,12 +153,10 @@ The design is composed of multiple modules, where the top module instantiates lo
 **Figure 5: Module Hierarchy**
 
 <p align="center">
-  <img src="modules(info).jpeg" width="850">
+  <img src="modules(info).jpeg" alt="Module Hierarchy" width="850">
 </p>
 
-### Why This Matters for Timing Analysis
-
-Designing synchronous systems with combinational logic separated by flip-flops also **simplifies timing analysis**, since each combinational block is given one clock period to produce a stable output. This methodology forms the foundation of modern RTL design and is widely used in processors, communication systems, embedded controllers, and other digital hardware.
+The figure shows the hierarchical structure of the `multiple_modules` design. The top-level module instantiates `sub_module1` and `sub_module2`, which communicate through the intermediate signal `net1`. This demonstrates how a complex design can be divided into smaller, reusable modules while maintaining a clear hierarchical organization.
 
 ---
 
