@@ -16,7 +16,7 @@ This document covers standard cell libraries and PVT corners, hierarchical vs. f
 
 ---
 
-## Standard Cell Library and PVT Characterization
+###Standard Cell Library and PVT Characterization
 
 During logic synthesis, an RTL design cannot be directly converted into hardware without a **technology library**. A Standard Cell Library provides a collection of pre-designed, pre-characterized logic cells — gates, multiplexers, flip-flops, buffers — that serve as the fundamental building blocks for digital circuit implementation. Along with each cell's functional description, the library includes **timing, power, area, and drive-strength** information, enabling the synthesis tool to map the RTL design into an optimized gate-level netlist.
 
