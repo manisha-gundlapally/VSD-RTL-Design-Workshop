@@ -1,6 +1,6 @@
-# RTL Design & Synthesis Workshop — IF-ELSE, CASE, and Looping Constructs
+# Day 5 – IF-ELSE, CASE, and Looping Constructs
 
-This repository documents a series of RTL design labs exploring correct and incorrect coding styles in Verilog, with a focus on **priority logic**, **selection logic**, **inferred latches**, and **looping constructs** (procedural vs. generate). Each lab includes the RTL code, observed behavior, and key learning outcomes derived from simulation and synthesis.
+This document covers correct and incorrect RTL coding styles in Verilog, with a focus on **priority logic**, **selection logic**, **inferred latches**, and **looping constructs** (procedural vs. generate). Each lab includes the RTL code, observed behavior, waveform, synthesized netlist, and key learning outcomes.
 
 ---
 
@@ -33,6 +33,7 @@ else statement3;
 ```
 
 **Priority order:**
+
 | Level | Construct | Behavior |
 |---|---|---|
 | Highest | `if` | Evaluated first |
@@ -89,7 +90,7 @@ Even without a final `else`, this does **not** infer a latch — the circuit is 
 
 ## Labs 1–2: Incomplete IF Statements
 
-### Lab 1: Incomplete IF Statement (`incomp_if1.v`)
+### Lab 1: Incomplete IF Statement (`incomp_if.v`)
 
 ```verilog
 always @(*) begin
@@ -103,6 +104,18 @@ end
 |---|---|
 | `i0 = 1` | `y` follows `i1` |
 | `i0 = 0` | No assignment → previous value retained (latch) |
+
+**Waveform**
+
+<p align="center">
+  <img src="incomp_if(waveform).jpeg" width="850">
+</p>
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="incomp_if(netlist).jpeg" width="850">
+</p>
 
 **Learning Outcome:** Every output in a combinational `always @(*)` block must be assigned for all input conditions.
 
@@ -122,6 +135,18 @@ If both `i0` and `i2` are low, `y` is left unassigned, and a latch is inferred.
 | `i0 = 1` | `y = i1` |
 | `i0 = 0, i2 = 1` | `y = i3` |
 | `i0 = 0, i2 = 0` | No assignment → latch inferred |
+
+**Waveform**
+
+<p align="center">
+  <img src="incomp_if2(waveform).jpeg" width="850">
+</p>
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="incomp_if2(netlist).jpeg" width="850">
+</p>
 
 **Learning Outcome:** Adding `else if` alone doesn't prevent latch inference — a final `else` is required to cover every path.
 
@@ -147,6 +172,18 @@ end
 | `2'b10` | Previous value retained (latch) |
 | `2'b11` | Previous value retained (latch) |
 
+**Waveform**
+
+<p align="center">
+  <img src="incomp_case(waveform).jpeg" width="850">
+</p>
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="incomp_case(netlist).jpeg" width="850">
+</p>
+
 **Learning Outcome:** Uncovered `sel` values with no `default` branch cause latch inference.
 
 ### Lab 4: Complete CASE Statement (`comp_case.v`)
@@ -168,9 +205,21 @@ end
 | `2'b10` | `y = i2` |
 | `2'b11` | `y = i2` |
 
+**Waveform**
+
+<p align="center">
+  <img src="comp_case(waveform).jpeg" width="850">
+</p>
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="comp_case(netlist).jpeg" width="850">
+</p>
+
 **Learning Outcome:** A `default` branch guarantees every input value is covered, eliminating latch inference.
 
-### Lab 5: Partial Output Assignment in CASE Statement
+### Lab 5: Partial Output Assignment in CASE Statement (`partial_case_assign.v`)
 
 ```verilog
 always @(*) begin
@@ -197,6 +246,12 @@ end
 | `2'b00` | `i0` | `i2` |
 | `2'b01` | `i1` | Previous value (latch) |
 | default | `i3` | `i4` |
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="partial_case(netlist).jpeg" width="850">
+</p>
 
 **Learning Outcome:** When multiple outputs are driven inside a `case`, **every** output must be assigned in **every** branch.
 
@@ -227,6 +282,12 @@ The pattern `2'b1?` matches both `2'b10` and `2'b11`, but `2'b10` is already exp
 | `2'b11` | `2'b1?` | `y = i3` |
 
 Verilog simulators resolve overlaps by taking the **first match**, but synthesis tools may optimize differently — leading to **simulation-synthesis mismatches**, even though no latch is inferred.
+
+**Waveform**
+
+<p align="center">
+  <img src="bad_case(waveform).jpeg" width="850">
+</p>
 
 **Learning Outcome:** Case items should be mutually exclusive. Avoid overlapping wildcard patterns (`?`, `z`) unless carefully designed.
 
@@ -304,19 +365,30 @@ Used **outside** `always` blocks to instantiate multiple hardware copies during 
 ## Labs 7–10: Loop-Based MUX, DEMUX, and RCA
 
 ### Lab 7: Multiplexer Using Procedural `for` Loop (`mux_generate.v`)
+
 Implements a MUX by iterating through input indices and comparing each to `sel`, instead of writing explicit `case` items.
+
 - ✅ Correct input selected for all `sel` values.
 - ✅ Synthesis produced hardware equivalent to a conventional MUX.
+
+**Waveform**
+
+<p align="center">
+  <img src="mux_generate(waveform).jpeg" width="850">
+</p>
 
 **Learning Outcome:** Procedural loops eliminate repetitive statements while preserving identical synthesized functionality.
 
 ### Lab 8: Demultiplexer Using CASE Statement (`demux_case.v`)
+
 Routes a single input to one of several outputs based on `sel`, with each value explicitly handled in the `case`.
+
 - ✅ Only the selected output activates; all others remain inactive.
 
 **Learning Outcome:** `case` statements are simple and readable for DEMUX designs with a small number of outputs.
 
 ### Lab 9: Demultiplexer Using Procedural `for` Loop (`demux_generate.v`)
+
 Same functionality as Lab 8, implemented with a loop instead of manual `case` items.
 
 | | CASE Statement | Procedural `for` Loop |
@@ -325,13 +397,47 @@ Same functionality as Lab 8, implemented with a loop instead of manual `case` it
 | Scalability | Less scalable | Easily scales to wide buses |
 | Style | More repetitive | Compact, maintainable |
 
+**Waveform**
+
+<p align="center">
+  <img src="demux_generator(waveform).jpeg" width="850">
+</p>
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="demux_generator(netlist).jpeg" width="850">
+</p>
+
 **Learning Outcome:** Procedural loops improve scalability and readability without changing synthesized hardware.
 
-### Lab 10: Ripple Carry Adder Using Generate `for` Loop
+### Lab 10: Ripple Carry Adder Using Generate `for` Loop (`rca.v`)
+
 Automatically instantiates one Full Adder per bit using a `generate` loop, with carry propagating from stage to stage.
+
 - ✅ Full Adder instances generated automatically during elaboration.
 - ✅ Carry propagated correctly across all stages.
 - ✅ Functional simulation and synthesis both verified correct addition.
+
+**Waveform**
+
+<p align="center">
+  <img src="rca(waveform).jpeg" width="850">
+</p>
+
+**Synthesized Netlist**
+
+<p align="center">
+  <img src="rca(netlist).jpeg" width="850">
+</p>
+
+**Gate-Level Simulation (GLS) Waveform**
+
+<p align="center">
+  <img src="rca_gls(waveform).jpeg" width="850">
+</p>
+
+The GLS waveform, generated by simulating the synthesized netlist with the SKY130 primitive models, matches the RTL simulation waveform — confirming that synthesis preserved functional correctness.
 
 **Learning Outcome:** `generate` loops are a powerful, scalable method for repetitive hardware structures — RCAs, register arrays, arithmetic units, and bus-oriented circuits.
 
