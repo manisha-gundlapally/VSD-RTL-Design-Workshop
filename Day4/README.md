@@ -46,7 +46,7 @@ RTL simulation verifies functional behavior, but synthesis performs optimization
 | Used during functional verification | Used after synthesis for hardware validation |
 **Figure 1: RTL and Gate-Level Simulation Waveform**
 
-![RTL vs GLS Waveform](ternery_operator_mux(waveform).jpeg)
+![RTL vs GLS Waveform](ternary_operator_mux(waveform).jpeg)
 
 The waveform verifies that the synthesized gate-level implementation produces the same functional behavior as the RTL simulation, confirming that synthesis preserved the intended multiplexer functionality.
 
@@ -167,7 +167,7 @@ After synthesis, the design was implemented using actual logic gates. Since hard
 - Correct coding style ensures RTL behavior matches synthesized hardware.
 - **Figure 2: Synthesized Gate-Level Netlist of Ternary Operator Multiplexer**
 
-![Gate-Level Netlist](ternery_operator_mux(netlist).jpeg)
+![Gate-Level Netlist](ternary_operator_mux(netlist).jpeg)
 
 The synthesized netlist shows how the RTL description of the ternary operator multiplexer is mapped into standard cells from the technology library. This netlist is used during Gate-Level Simulation to verify that the synthesized hardware behaves identically to the RTL design.
 
