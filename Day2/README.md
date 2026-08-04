@@ -77,13 +77,13 @@ write_verilog multiple_modules_flat.v
 - `multiple_modules_hier.v` → **Hierarchical** gate-level netlist
 - `multiple_modules_flat.v` → **Flattened** gate-level netlist
 
----
+
 ### Figure 1: Hierarchical Netlist
 
 <p align="center">
   <img src="multiple_modules(netlist).jpeg" width="850">
 </p>
-
+---
 ## Submodule-Level Synthesis
 
 Instead of synthesizing the complete design, an individual submodule can be synthesized **independently**. This allows designers to analyze the area, timing, and logic implementation of a particular module before integrating it into the top-level design.
@@ -99,7 +99,7 @@ Instead of synthesizing the complete design, an individual submodule can be synt
 <p align="center">
   <img src="sub_module1(netlist).jpeg" width="850">
 </p>
-
+---
 ## Flip-Flops and Their Role in Digital Circuits
 
 A **flip-flop** is a sequential storage element capable of storing a single bit of information. Unlike combinational logic — whose output changes immediately with input changes — a flip-flop updates its output only when a triggering event, typically a **clock edge**, occurs. This controlled behavior makes flip-flops essential in synchronous digital systems.
@@ -115,7 +115,7 @@ A **flip-flop** is a sequential storage element capable of storing a single bit 
 <p align="center">
   <img src="dff(netlist).jpeg" width="850">
 </p>
-
+---
 ## Glitches in Combinational Logic
 
 ### How Glitches Occur
@@ -129,7 +129,7 @@ Consider a circuit built from **cascaded AND gates**, where the output of the fi
 These temporary transitions are called **glitches**. They occur because different signal paths have different propagation delays, letting the output momentarily assume an incorrect logic value even though the final steady-state output is correct.
 
 In small circuits glitches may seem insignificant, but in complex digital systems they can cause **incorrect operation** if captured by downstream logic.
-
+---
 ### How Flip-Flops Prevent Glitch Propagation
 
 To stop unwanted transitions from propagating through a design, flip-flops are inserted between combinational logic blocks:
@@ -139,6 +139,7 @@ To stop unwanted transitions from propagating through a design, flip-flops are i
 - Since the output changes only at well-defined clock instants, glitches occurring within the combinational logic are **not propagated** to the next stage — provided the signals stabilize before the clock edge.
 
 This approach improves the **reliability, predictability, and synchronization** of digital circuits.
+---
 ### Module Hierarchy
 
 The design is composed of multiple modules, where the top module instantiates lower-level submodules. This hierarchical organization improves readability, modularity, and code reuse.
