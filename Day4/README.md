@@ -44,6 +44,11 @@ RTL simulation verifies functional behavior, but synthesis performs optimization
 | Does not include gate delays | Can include propagation delays |
 | Faster simulation | More accurate hardware verification |
 | Used during functional verification | Used after synthesis for hardware validation |
+**Figure 1: RTL and Gate-Level Simulation Waveform**
+
+![RTL vs GLS Waveform](ternery_operator_mux(waveform).jpeg)
+
+The waveform verifies that the synthesized gate-level implementation produces the same functional behavior as the RTL simulation, confirming that synthesis preserved the intended multiplexer functionality.
 
 ---
 
@@ -130,6 +135,11 @@ The circuit consisted of two combinational stages:
 
 1. **First stage** — generates an intermediate signal `x` using an OR gate.
 2. **Second stage** — generates the final output `d` using an AND gate.
+**Figure 3: Blocking Assignment Caveat Waveform**
+
+![Blocking Assignment Waveform](blocking_caveat(waveform).jpeg)
+
+The waveform demonstrates the temporary incorrect output produced during RTL simulation due to the sequential execution of blocking assignments. Comparing this behavior with Gate-Level Simulation highlights why proper Verilog coding practices are essential to avoid simulation-synthesis mismatches.
 
 ### RTL Simulation Behavior
 
@@ -155,16 +165,15 @@ After synthesis, the design was implemented using actual logic gates. Since hard
 - Synthesized hardware evaluates combinational logic simultaneously.
 - Gate-Level Simulation helps detect simulation-synthesis mismatches.
 - Correct coding style ensures RTL behavior matches synthesized hardware.
+- **Figure 2: Synthesized Gate-Level Netlist of Ternary Operator Multiplexer**
+
+![Gate-Level Netlist](ternery_operator_mux(netlist).jpeg)
+
+The synthesized netlist shows how the RTL description of the ternary operator multiplexer is mapped into standard cells from the technology library. This netlist is used during Gate-Level Simulation to verify that the synthesized hardware behaves identically to the RTL design.
 
 ---
 
-## Interview Point
 
-**Q: Why is Gate-Level Simulation required even after RTL simulation?**
-
-**A:** RTL simulation only verifies the behavioral description of the design. During synthesis, the RTL is transformed into actual logic gates, and coding mistakes such as incorrect sensitivity lists or improper use of blocking assignments can produce different hardware behavior. Gate-Level Simulation verifies that the synthesized gate-level netlist still satisfies the intended functionality and accurately represents the final hardware implementation.
-
----
 
 ## Key Takeaways
 
