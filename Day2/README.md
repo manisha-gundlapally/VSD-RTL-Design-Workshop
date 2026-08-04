@@ -12,11 +12,12 @@ This document covers standard cell libraries and PVT corners, hierarchical vs. f
 - [Submodule-Level Synthesis](#submodule-level-synthesis)
 - [Flip-Flops and Their Role in Digital Circuits](#flip-flops-and-their-role-in-digital-circuits)
 - [Glitches in Combinational Logic](#glitches-in-combinational-logic)
+- [Module Hierarchy](#module-hierarchy)
 - [Key Takeaways](#key-takeaways)
 
 ---
 
-###Standard Cell Library and PVT Characterization
+## Standard Cell Library and PVT Characterization
 
 During logic synthesis, an RTL design cannot be directly converted into hardware without a **technology library**. A Standard Cell Library provides a collection of pre-designed, pre-characterized logic cells — gates, multiplexers, flip-flops, buffers — that serve as the fundamental building blocks for digital circuit implementation. Along with each cell's functional description, the library includes **timing, power, area, and drive-strength** information, enabling the synthesis tool to map the RTL design into an optimized gate-level netlist.
 
@@ -77,14 +78,15 @@ write_verilog multiple_modules_flat.v
 - `multiple_modules_hier.v` → **Hierarchical** gate-level netlist
 - `multiple_modules_flat.v` → **Flattened** gate-level netlist
 
-
-### Figure 1: Hierarchical Netlist
+**Figure 1: Hierarchical Netlist**
 
 <p align="center">
   <img src="multiple_modules(netlist).jpeg" width="850">
 </p>
+
 ---
-### Submodule-Level Synthesis
+
+## Submodule-Level Synthesis
 
 Instead of synthesizing the complete design, an individual submodule can be synthesized **independently**. This allows designers to analyze the area, timing, and logic implementation of a particular module before integrating it into the top-level design.
 
@@ -93,29 +95,32 @@ Instead of synthesizing the complete design, an individual submodule can be synt
 - Verifying a submodule's implementation
 - Understanding reusable design blocks before full integration
 
----
-### Figure 2: Synthesized Submodule Netlist
+**Figure 2: Synthesized Submodule Netlist**
 
 <p align="center">
   <img src="sub_module1(netlist).jpeg" width="850">
 </p>
+
 ---
+
 ## Flip-Flops and Their Role in Digital Circuits
 
 A **flip-flop** is a sequential storage element capable of storing a single bit of information. Unlike combinational logic — whose output changes immediately with input changes — a flip-flop updates its output only when a triggering event, typically a **clock edge**, occurs. This controlled behavior makes flip-flops essential in synchronous digital systems.
 
----
-### Figure 3: D Flip-Flop Waveform
+**Figure 3: D Flip-Flop Waveform**
 
 <p align="center">
   <img src="dff(waveform).jpeg" width="850">
 </p>
-### Figure 4: Synthesized D Flip-Flop Netlist
+
+**Figure 4: Synthesized D Flip-Flop Netlist**
 
 <p align="center">
   <img src="dff(netlist).jpeg" width="850">
 </p>
+
 ---
+
 ## Glitches in Combinational Logic
 
 ### How Glitches Occur
@@ -129,7 +134,7 @@ Consider a circuit built from **cascaded AND gates**, where the output of the fi
 These temporary transitions are called **glitches**. They occur because different signal paths have different propagation delays, letting the output momentarily assume an incorrect logic value even though the final steady-state output is correct.
 
 In small circuits glitches may seem insignificant, but in complex digital systems they can cause **incorrect operation** if captured by downstream logic.
----
+
 ### How Flip-Flops Prevent Glitch Propagation
 
 To stop unwanted transitions from propagating through a design, flip-flops are inserted between combinational logic blocks:
@@ -139,16 +144,19 @@ To stop unwanted transitions from propagating through a design, flip-flops are i
 - Since the output changes only at well-defined clock instants, glitches occurring within the combinational logic are **not propagated** to the next stage — provided the signals stabilize before the clock edge.
 
 This approach improves the **reliability, predictability, and synchronization** of digital circuits.
+
 ---
-### Module Hierarchy
+
+## Module Hierarchy
 
 The design is composed of multiple modules, where the top module instantiates lower-level submodules. This hierarchical organization improves readability, modularity, and code reuse.
 
-### Figure : Module Hierarchy
+**Figure 5: Module Hierarchy**
 
 <p align="center">
   <img src="modules(info).jpeg" width="850">
 </p>
+
 ### Why This Matters for Timing Analysis
 
 Designing synchronous systems with combinational logic separated by flip-flops also **simplifies timing analysis**, since each combinational block is given one clock period to produce a stable output. This methodology forms the foundation of modern RTL design and is widely used in processors, communication systems, embedded controllers, and other digital hardware.
@@ -164,4 +172,3 @@ Designing synchronous systems with combinational logic separated by flip-flops a
 - Submodule-level synthesis lets a single block be analyzed for area/timing before full integration.
 - Flip-flops sample inputs only at clock edges, blocking glitches generated by unequal propagation delays in combinational logic from propagating downstream.
 - Separating combinational logic with flip-flops gives each block a full clock period to settle, simplifying timing analysis in synchronous design.
-
