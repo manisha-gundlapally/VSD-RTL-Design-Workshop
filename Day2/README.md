@@ -84,7 +84,7 @@ write_verilog multiple_modules_flat.v
   <img src="multiple_modules(netlist).jpeg" width="850">
 </p>
 ---
-## Submodule-Level Synthesis
+### Submodule-Level Synthesis
 
 Instead of synthesizing the complete design, an individual submodule can be synthesized **independently**. This allows designers to analyze the area, timing, and logic implementation of a particular module before integrating it into the top-level design.
 
