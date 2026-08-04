@@ -79,6 +79,15 @@ iverilog good_mux.v tb_good_mux.v
 #### Figure 1: Good Mux Simulation Output
 
 ![Good Mux Simulation Output](images/good_mux_terminal_output.png)
+## RTL Simulation
+
+
+
+### RTL Waveform
+
+<p align="center">
+  <img src="images/good_mux_waveform.png" alt="RTL Waveform" width="700">
+</p>
 
 The terminal output confirms that the design compiled and executed successfully.
 
