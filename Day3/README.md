@@ -48,10 +48,15 @@ Sequential optimization applies to circuits containing memory elements such as f
 - Propagating constant values through sequential logic.
 - Eliminating unreachable logic.
 - Improving timing while maintaining functional equivalence.
+**Figure 3: Sequential Optimization of D Flip-Flop**
 
+![Sequential Optimization](dff_const1(netlist).jpeg)
+
+The synthesized circuit removes unnecessary sequential logic while preserving the behavior of the original design.
 ---
 
 ## Constant Propagation
+
 
 Constant propagation replaces signals that always carry a fixed logic value **directly with that constant** during synthesis. Instead of implementing logic to compute an already-known value, the synthesis tool substitutes the constant and removes redundant gates.
 
@@ -60,6 +65,11 @@ Constant propagation replaces signals that always carry a fixed logic value **di
 - Decreases hardware utilization.
 - Improves timing.
 - Lowers power consumption.
+- **Figure 1: Constant Propagation Example**
+
+![Constant Propagation](counter_opt(netlist).jpeg)
+
+The synthesized netlist shows that constant-valued signals are propagated through the logic, allowing unnecessary gates to be removed during optimization.
 
 ---
 
@@ -68,6 +78,11 @@ Constant propagation replaces signals that always carry a fixed logic value **di
 If a signal or output is never used by the remaining circuit, the synthesis tool recognizes it has no effect on final functionality and **automatically removes it** during optimization — reducing total gate count and preventing unnecessary hardware from being implemented.
 
 This demonstrates that synthesis tools generate hardware only for logic that actually contributes to the final outputs.
+**Figure 2: Logic Simplification after Optimization**
+
+![Logic Simplification](counter_opt2(netlist).jpeg)
+
+The optimized netlist contains fewer logic gates while maintaining the same functionality as the original RTL design.
 
 ---
 
@@ -134,6 +149,52 @@ A D flip-flop with an asynchronous reset and constant assignment was synthesized
 
 ### Lab 6 – Constant Register Optimization
 A flip-flop whose output always remained at logic `1` was synthesized. Since the register never changed state, Yosys optimized the circuit by removing unnecessary sequential elements and replacing them with constant logic wherever applicable.
+**Figure 4: Constant Register Optimization**
+
+![Constant Register](dff_const2(netlist).jpeg)
+
+Since the register output always remains at logic '1', Yosys replaces the flip-flop with constant logic, reducing hardware complexity.
+**Figure 5: Waveform Verification**
+
+![Waveform](dffconst2(waveform).jpeg)
+
+The waveform confirms that the optimized circuit produces the expected output behavior after synthesis.
+**Figure 6: Final Optimized Netlist**
+
+![Optimized Netlist](dffconst3(netlist).jpeg)
+
+The final synthesized netlist reflects the cumulative effect of multiple optimization passes performed by Yosys.
+## Verification of Optimization Results
+
+**Figure 7: Optimization Check 1**
+
+![Optimization Check](opt_check(netlist).jpeg)
+
+The generated netlist confirms that unnecessary logic has been removed.
+
+---
+
+**Figure 8: Optimization Check 2**
+
+![Optimization Check](opt_check2(netlist).jpeg)
+
+The optimized circuit preserves the original functionality while reducing hardware.
+
+---
+
+**Figure 9: Optimization Check 3**
+
+![Optimization Check](opt_check3(netlist).jpeg)
+
+This netlist demonstrates additional logic simplifications performed by Yosys.
+
+---
+
+**Figure 10: Optimization Check 4**
+
+![Optimization Check](opt_check4(netlist).jpeg)
+
+The final optimization result shows the cumulative effect of constant propagation, Boolean simplification, and dead logic removal.
 
 | Lab | Focus | Key Result |
 |---|---|---|
