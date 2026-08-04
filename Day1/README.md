@@ -80,7 +80,7 @@ iverilog good_mux.v tb_good_mux.v
 
 **Figure 1: Good Mux Simulation Output**
 
-![Good Mux Simulation Output](images/good_mux_terminal_output.png)
+![Good Mux Simulation Output](images/terminal_output.png)
 
 The terminal output confirms that the design and testbench compiled and executed successfully, generating a `.vcd` file for waveform viewing.
 
